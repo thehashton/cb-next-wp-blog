@@ -8,26 +8,6 @@ import Layout from '../components/layout'
 import { getAllPostsForHome } from '../lib/api'
 import { CMS_NAME } from '../lib/constants'
 
-// Get the first 20 posts from WordPress, ordered by the date
-export async function getAllPostsFromWordPress(preview) {
-    const data = await fetch(`
-    query AllPosts {
-      posts(first: 20, where: { orderby: { field: DATE, order: DESC } }) {
-        edges {
-          node {
-            title
-            excerpt
-            slug
-            date
-          }
-        }
-      }
-    }
-  `)
-
-    return data.posts
-}
-
 export default function Index({ allPosts: { edges }, preview }) {
   const heroPost = edges[0]?.node
   const morePosts = edges.slice(1)
