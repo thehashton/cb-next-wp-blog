@@ -1,27 +1,29 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 const ThemeToggler = () => {
     const [themeMode, setThemeMode] = useState<string|undefined>(typeof window !== 'undefined' ? localStorage.getItem("themeMode") || undefined : null)
     const [theme, setTheme] = React.useState(themeMode);
+    const [toggle, setToggle] = useState(false);
 
     const toggleTheme = (event) => {
-        setTheme(event.target.checked === false ? 'dark' : 'light');
+        setTheme(toggle === false ? 'dark' : 'light');
         setThemeMode(event.target.value)
-        localStorage.setItem("themeMode", themeMode );
-        console.log(theme)
+        window.localStorage.setItem("themeMode", theme );
+        setToggle(!toggle)
     };
 
-    React.useEffect(() => {
-        document.querySelector('html').setAttribute('data-theme', theme);
+    useEffect(() => {
+        document.querySelector('html').setAttribute('data-theme', themeMode);
     }, [theme]);
 
     return (
         <div className={'flex flex-col justify-center align-baseline'}>
             <label className="swap swap-rotate">
-                <input className={"toggle"} onChange={toggleTheme}
-                       value={theme === 'dark' ? 'dark' : 'light'}
+                <input className={"toggle"}
+                       onChange={toggleTheme}
+                       value={toggle === false ? 'dark' : 'light'}
                        type="checkbox"
-                       checked={theme !== 'dark'} />
+                       checked={toggle} />
             </label>
         </div>
     );
