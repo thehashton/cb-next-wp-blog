@@ -6,7 +6,7 @@ const ThemeToggler = () => {
     const [toggle, setToggle] = useState(false);
 
     const toggleTheme = (event) => {
-        setTheme(toggle === false ? 'dark' : 'light');
+        setTheme(toggle === false ? 'synthwave' : 'light');
         setThemeMode(event.target.value)
         window.localStorage.setItem("themeMode", theme );
         setToggle(!toggle)
@@ -21,7 +21,7 @@ const ThemeToggler = () => {
             <label className="swap swap-rotate">
                 <input className={"toggle"}
                        onChange={toggleTheme}
-                       value={toggle === false ? 'dark' : 'light'}
+                       value={toggle === false ? 'synthwave' : 'light'}
                        type="checkbox"
                        checked={toggle} />
             </label>
